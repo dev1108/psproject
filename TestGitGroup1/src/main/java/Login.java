@@ -24,7 +24,6 @@ public class Login extends HttpServlet {
 		out.println("<br>");
 		out.println("<br>");
 		out.println("<br>");
-<<<<<<< HEAD
 		out.println("<form action='uportal' method='post' style='text-align: centre;margin-left: 10cm;'>");
 		out.println("<h1 >Welcome to User Management Systems</h1>");
 		out.println("<input style='text-align: centre;margin-left: 6cm;' type='submit' value='log In'>");
@@ -34,18 +33,6 @@ public class Login extends HttpServlet {
 		out.println("<form action='signup' method='post' style='text-align: centre;margin-left: 10cm;'>");
 		out.println("<br><input style='text-align: centre;margin-left: 5cm;' type='submit' value='New User? Sign up!'>");
 		out.println("</form>");
-=======
-		  out.println("<form action='uportal' method='post' style='text-align: centre;margin-left: 10cm;'>");
-		        out.println("<h1 >Welcome to User Management Systems</h1>");
-		        out.println("<input style='text-align: centre;margin-left: 6cm;' type='submit' value='Log In'>");
-		        out.println("<br>");
-		        out.println("</form>");
-		        
-		        out.println("<form action='signup' method='post' style='text-align: centre;margin-left: 10cm;'>");
-		        out.println("<br><input style='text-align: centre;margin-left: 5cm;' type='submit' value='New User? Sign up!'>");
-		        out.println("</form>");
-		
->>>>>>> deeshu
 		
 	}
 }
