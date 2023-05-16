@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/uportal")
 public class UPortal extends HttpServlet{
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter p1 = resp.getWriter();
 		p1.print("UMS Portal");
 	}

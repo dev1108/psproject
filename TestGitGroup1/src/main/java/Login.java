@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/login")
+@WebServlet("/Login")
 public class Login extends HttpServlet {
 	/**
 	 * 
@@ -28,7 +28,7 @@ public class Login extends HttpServlet {
 		out.println("</form>");
 		
 		
-		out.println("<form action='signup' method='post' style='text-align: centre;margin-left: 10cm;'>");
+		out.println("<form action='Signup' method='post' style='text-align: centre;margin-left: 10cm;'>");
 		out.println("<br><input style='text-align: centre;margin-left: 5cm;' type='submit' value='New User? Sign up!'>");
 		out.println("</form>");
 
