@@ -185,7 +185,6 @@ public class Login extends HttpServlet {
 //			RequestDispatcher rd = request.getRequestDispatcher("LoginError");
 //			rd.forward(request, response);
 //		}
-		
 	}
 
 }
