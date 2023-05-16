@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Sign Up</title>
+<style>
+	button{
+		width: 300px;
+		height: 25px;
+	}
+	.container{
+		margin-top: auto;
+		width: 350px;
+		height: 300px;
+		margin: auto;
+		padding: 20px;
+		border-radius: 10px;
+		 box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+					  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+					  0 12.5px 10px rgba(0, 0, 0, 0.06),
+					  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+					  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+					  0 100px 80px rgba(0, 0, 0, 0.12);
+	}
+	
+</style>
+</head>
+<body >
+	<div  align = center class = "container">
+		<h2>Sign Up Here</h2>
+		<form action = "SignUp" method = "post">
+			<table>
+				<tr><td>Enter user name<span style='color:red'>*</span></td><td> : <input type ="text" name = "uname" required></td></tr>
+				<tr><td>Enter password<span style='color:red'>*</span></td><td> : <input type ="password" name = "pass" required></td></tr>
+				<tr><td>Enter email<span style='color:red'>*</span></td><td> : <input type ="text" name = "email" required></td></tr>
+				<tr><td>Enter mobile no.<span style='color:red'>*</span></td><td> : <input type ="text" name = "mnumb" required></td></tr>
+				<tr><td>Enter DOB<span style='color:red'>*</span></td><td> : <input type ="date" name = "dob" required></td></tr>
+			</table>
+			<br><button type ="submit">Submit</button>
+			<p>Back to Login <a href = "login.html">Click here</a></p>
+		</form>
+	</div>
+	
+</body>
+</html>
