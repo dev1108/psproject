@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Move to login page</title>
+<style>
+*{
+	margin: 0px;
+	padding: 0px;
+}
+body{
+	background-image: url('b.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+.btn {
+	width: 200px;
+	height: 35px;
+	margin-top: 0px;
+	background-color: transparent;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	border: 2px solid green;
+	transition: 0.8s ease-out;
+}
+
+.btn:hover {
+  background-color: darkgreen;
+  color: white;
+  border: green;
+}
+
+.container {
+	width: 100%;
+	height: 100vh;
+	background-color: black;
+	opacity: 0.8;
+}
+h2{
+	padding-top: 350px;
+	font-size: 40px;
+	font-family: cursive;
+	animation-name: texthead;
+  	animation-duration: 4s;
+}
+@keyframes texthead{
+	from {color: red;}
+	to {color: green;}
+}
+
+.btn{
+	position: relative;
+  animation-name: btnanimate;
+  animation-duration: 3s;  
+  animation-fill-mode: forwards;
+}
+@keyframes btnanimate {
+  from {top: 0px;}
+  to {top: 100px;}
+}
+
+</style>
+</head>
+
+<body>
+	<div class="container">
+		<div align=center class = "box">
+			<h2 style="color: white;">Welcome to <span style = "color: red;">User Management</span> System</h2>
+			<form action="Login" method="post">
+				<button type="submit" class = "btn">Login</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
