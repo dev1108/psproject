@@ -20,10 +20,8 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		PrintWriter pw = response.getWriter();
-		// fetching data from login
-//		String username = request.getParameter("uname");
-//		String password = request.getParameter("pass");
 		
+
 		response.setContentType("text/html"); 
 		 
 		
