@@ -10,18 +10,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class LoginError
+ * Servlet implementation class EmailValidation
  */
-@WebServlet("/LoginError")
-public class LoginError extends HttpServlet {
-	
+@WebServlet("/EmailValidation")
+public class EmailValidation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// Printing error of login section
 		PrintWriter pw = response.getWriter();
-		
 		// Preventing from getting back to previous page
 		pw.print("<script type = \"text/javascript\" >  \r\n"
 				+ "    function preventBack() { window.history.forward(); }  \r\n"
@@ -33,7 +30,7 @@ public class LoginError extends HttpServlet {
 				+ "<html>\r\n"
 				+ "<head>\r\n"
 				+ "<meta charset=\"ISO-8859-1\">\r\n"
-				+ "<title>Login Error</title>\r\n"
+				+ "<title>SignUp Error</title>\r\n"
 				+ "<style>\r\n"
 				+ "* {\r\n"
 				+ "	margin: 0px;\r\n"
@@ -93,7 +90,7 @@ public class LoginError extends HttpServlet {
 				+ "}\r\n"
 				+ "\r\n"
 				+ ".newuser {\r\n"
-				+ "	width: 100px;\r\n"
+				+ "	width: 150px;\r\n"
 				+ "	height: 30px;\r\n"
 				+ "	border: 1px solid #0DFEE6;\r\n"
 				+ "	background-color: transparent;\r\n"
@@ -116,11 +113,11 @@ public class LoginError extends HttpServlet {
 				+ "<body>\r\n"
 				+ "	<div class=\"overlay\">\r\n"
 				+ "		<div class= \"container\" align=center>\r\n"
-				+ "			<i class=\"fa-regular fa-circle-exclamation fa-shake\" style=\"color: #fc0303;\"></i><h3>Invalid email or password !</h3>\r\n"
+				+ "			<h3>Email already exist !</h3>\r\n"
 				+ "		</div>\r\n"
 				+ "		<div class = \"previuosBtn\" align=center>\r\n"
-				+ "			<form action= \"Login\" method=\"post\">\r\n"
-				+ "				<button type= \"submit\" class=\"newuser\">Try Again</button>\r\n"
+				+ "			<form action= \"SignUp\" method=\"post\">\r\n"
+				+ "				<button type= \"submit\" class=\"newuser\">Back to SignUp</button>\r\n"
 				+ "			</form>\r\n"
 				+ "		</div>\r\n"
 				+ "	</div>\r\n"

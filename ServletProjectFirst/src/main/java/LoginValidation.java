@@ -24,11 +24,11 @@ public class LoginValidation extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Fetching data from login from
-		String name = request.getParameter("uname");
+		String email = request.getParameter("email");
 		String password = request.getParameter("pass");
 		
 		// Declared variable for storing data, fetched from database
-		String name1 = null;
+		String email1 = null;
 		String password1 = null;
 		try {
 			String url = "jdbc:postgresql://localhost:5432/SignInSignUp";
@@ -38,14 +38,14 @@ public class LoginValidation extends HttpServlet {
 			Connection conn = DriverManager.getConnection(url, user, pass);
 			
 			// Fetching data from database
-			PreparedStatement ps = conn.prepareStatement("select name, password from signup where password = ?");
+			PreparedStatement ps = conn.prepareStatement("select email, password from signup where email = ?");
 			
-			ps.setString(1, password);
+			ps.setString(1, email);
 			
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				name1 = rs.getString(1);
+				email1 = rs.getString(1);
 				password1 = rs.getString(2);
 			}
 			
@@ -54,7 +54,7 @@ public class LoginValidation extends HttpServlet {
 		}
 		
 		// Checking data is valid or not && redirecting to user panel area
-		if (name.equals(name1) && password.equals(password1)) {
+		if (email.equals(email1) && password.equals(password1)) {
 			RequestDispatcher rd1 = request.getRequestDispatcher("LoginUserDashboard");
 			rd1.forward(request, response);
 		}

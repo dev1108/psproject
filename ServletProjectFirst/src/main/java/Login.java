@@ -2,6 +2,10 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,20 +23,40 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		PrintWriter pw = response.getWriter();
-		// fetching data from login
-//		String username = request.getParameter("uname");
-//		String password = request.getParameter("pass");
-		
-		response.setContentType("text/html"); 
-		 
-		
-		//Fetching data from sign up
-		String uname = request.getParameter("username");
-		if (uname != null) {
-			pw.println("<script type=\"text/javascript\">"); 
-			pw.println("alert('You have registered successfully');"); 
-			pw.println("</script>"); 
+		PrintWriter pw = response.getWriter();	
+		response.setContentType("text/html");
+
+		// Fetching data from sign up
+		String email = request.getParameter("email");
+		// Storing email data from database
+		String emaildb = null;
+		if (email != null) {
+			try {
+				String url = "jdbc:postgresql://localhost:5432/SignInSignUp";
+				String user = "postgres";
+				String pass = "admin";
+				Class.forName("org.postgresql.Driver");
+				Connection conn = DriverManager.getConnection(url, user, pass);
+
+				PreparedStatement ps = conn.prepareStatement("select email from signup where email = ?");
+				ps.setString(1, email);
+				ResultSet rs = ps.executeQuery();
+
+				while (rs.next()) {
+					emaildb = rs.getString(1);
+				}
+
+				// Pop-up message for user registration
+				if (email.equals(emaildb)) {
+					pw.println("<script type=\"text/javascript\">");
+					pw.println("alert('You have registered successfully');");
+					pw.println("</script>");
+
+				} 
+
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 		}
 				
 		
@@ -41,6 +65,7 @@ public class Login extends HttpServlet {
 				+ "<head>\r\n"
 				+ "<meta charset=\"ISO-8859-1\">\r\n"
 				+ "<title>Login</title>	\r\n"
+				+ "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css\">\r\n"
 				+ "<style>\r\n"
 				+ "* {\r\n"
 				+ "	margin: 0px;\r\n"
@@ -48,7 +73,7 @@ public class Login extends HttpServlet {
 				+ "}\r\n"
 				+ "\r\n"
 				+ "body {\r\n"
-				+ "	background: url(a.jpg);\r\n"
+				+ "	background: url(image/allbackground.jpg);\r\n"
 				+ "	background-repeat: no-repeat;\r\n"
 				+ "	background-attachment: fixed;\r\n"
 				+ "	background-size: cover;\r\n"
@@ -93,11 +118,11 @@ public class Login extends HttpServlet {
 				+ "	caret-color: white;\r\n"
 				+ "	padding: 3px;\r\n"
 				+ "	padding-left: 10px;\r\n"
+				+ "	transition: all 0.5s ease;\r\n"
 				+ "}\r\n"
-				+ "\r\n"
-				+ "input[type=text]:focus {\r\n"
-				+ "	border: 1px solid purple;\r\n"
-				+ "}\r\n"
+				+ " input:focus{"
+				+ "outline: none;"
+				+ "border-color: rgba(0, 155, 124, 0.96);}\r\n"
 				+ "\r\n"
 				+ "h2 {\r\n"
 				+ "	width: 50px;\r\n"
@@ -140,6 +165,12 @@ public class Login extends HttpServlet {
 				+ "label{\r\n"
 				+ "	color: #0DFEE6;\r\n"
 				+ "}\r\n"
+				+ "#togglePassword{\r\n"
+				+ "		position: absolute;\r\n"
+				+ "		top: 56.6%;\r\n"
+				+ "		left: 83%;\r\n"
+				+ "  	color: rgba(8, 215, 173, 0.50);\r\n"
+				+ "	}\r\n"
 				+ "</style>\r\n"
 				+ "</head>\r\n"
 				+ "<body>\r\n"
@@ -152,16 +183,17 @@ public class Login extends HttpServlet {
 				+ "			\r\n"
 				+ "				<table>\r\n"
 				+ "					<tr>\r\n"
-				+ "						<td><label>Username</label></td>\r\n"
+				+ "						<td><label>Email</label></td>\r\n"
 				+ "					</tr>\r\n"
 				+ "					<tr>\r\n"
-				+ "						<td><input type=\"text\" name=\"uname\" placeholder = \"username\" required>\r\n"
+				+ "						<td><input type=\"email\" name=\"email\" placeholder = \"email\" required>\r\n"
 				+ "					</tr>\r\n"
 				+ "					<tr>\r\n"
 				+ "						<td><label>Password</label></td>\r\n"
 				+ "					</tr>\r\n"
 				+ "					<tr>\r\n"
-				+ "						<td><input type=\"password\" name=\"pass\" placeholder = \"password\" required>\r\n"
+				+ "						<td><input type=\"password\" id=\"id_password\" name=\"pass\" placeholder = \"password\"  required>\r\n"
+				+ "							<i class=\"far fa-eye\" id=\"togglePassword\" style=\"cursor: pointer;\"></i>\r\n"
 				+ "					</tr>\r\n"
 				+ "					<tr>\r\n"
 				+ "						<td><button type=\"submit\" class = \"btn\">Login</button></td>\r\n"
@@ -174,17 +206,22 @@ public class Login extends HttpServlet {
 				+ "	</div>\r\n"
 				+ "	</div>\r\n"
 				+ "</body>\r\n"
+				
+				+ "<script>\r\n"
+				+ "	const togglePassword = document.querySelector('#togglePassword');\r\n"
+				+ "	const password = document.querySelector('#id_password');\r\n"
+				+ "	\r\n"
+				+ "	togglePassword.addEventListener('click', function (e) {\r\n"
+				+ "	  // toggle the type attribute\r\n"
+				+ "	  const type = password.getAttribute('type') === 'password' ? 'text' : 'password';\r\n"
+				+ "	  password.setAttribute('type', type);\r\n"
+				+ "	  // toggle the eye slash icon\r\n"
+				+ "	  this.classList.toggle('fa-eye-slash');\r\n"
+				+ "	});\r\n"
+				+ "</script>\r\n"
+				
 				+ "</html>");
 		
-//		if (username.equals("Heera") && password.equals("12345")) {
-//			RequestDispatcher rd1 = request.getRequestDispatcher("LoginUserDashboard");
-//			rd1.forward(request, response);
-//		}
-//		else {
-//			
-//			RequestDispatcher rd = request.getRequestDispatcher("LoginError");
-//			rd.forward(request, response);
-//		}
 		
 	}
 
