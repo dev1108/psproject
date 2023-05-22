@@ -43,12 +43,13 @@ public class RegisterMsg extends HttpServlet {
 				sd1.setEmail(email);
 				sd1.setMobile(mobile);
 				sd1.setDob(dob);
+			
 				
 				if (name != null && password != null) {
 					try {
 						String url = "jdbc:postgresql://localhost:5432/SignInSignUp";
 						String user = "postgres";
-						String pass = "admin";
+						String pass = "1986";
 						Class.forName("org.postgresql.Driver");
 						Connection conn = DriverManager.getConnection(url, user, pass);
 						
@@ -66,7 +67,7 @@ public class RegisterMsg extends HttpServlet {
 						
 						// Inserting data into database using prepared statement
 						
-						PreparedStatement ps = conn.prepareStatement("insert into signup values(?,?,?,?,?,?)");
+						PreparedStatement ps = conn.prepareStatement("insert into signup values(?,?,?,?,?,?,?)");
 						
 						ps.setInt(1, ++count);
 						ps.setString(2, sd1.getName());
@@ -74,6 +75,7 @@ public class RegisterMsg extends HttpServlet {
 						ps.setString(4, sd1.getEmail());
 						ps.setString(5, sd1.getMobile());
 						ps.setString(6, sd1.getDob());
+						ps.setBoolean(7, false);
 						ps.executeUpdate();
 						
 						

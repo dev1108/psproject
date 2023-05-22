@@ -43,6 +43,7 @@ public class SignUpData {
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
+	
 
 	public SignUpData(String name, String password, String email, String mobile, String dob) {
 		super();
@@ -51,6 +52,7 @@ public class SignUpData {
 		this.email = email;
 		this.mobile = mobile;
 		this.dob = dob;
+		
 	}
 
 	public SignUpData() {

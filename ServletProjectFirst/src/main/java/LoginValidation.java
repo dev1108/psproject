@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -33,7 +32,7 @@ public class LoginValidation extends HttpServlet {
 		try {
 			String url = "jdbc:postgresql://localhost:5432/SignInSignUp";
 			String user = "postgres";
-			String pass = "admin";
+			String pass = "1986";
 			Class.forName("org.postgresql.Driver");
 			Connection conn = DriverManager.getConnection(url, user, pass);
 			
