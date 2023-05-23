@@ -176,7 +176,7 @@ public class Login extends HttpServlet {
 				+ "<body>\r\n"
 				+ "<div class = \"overlay\">\r\n"
 				+ "	<div class=\"container\" align=center>\r\n"
-				+ "	<h2>Sign In</h2>\r\n"
+				+ "	<h2>Log in</h2>\r\n"
 				+ "		<form action=\"LoginValidation\" method=\"post\">\r\n"
 				+ "		\r\n"
 				+ "			<div class=\"inneritem\">\r\n"
@@ -222,7 +222,12 @@ public class Login extends HttpServlet {
 				
 				+ "</html>");
 		
-		
+		// Preventing from getting back to previous page
+				pw.print("<script type = \"text/javascript\" >  \r\n"
+						+ "    function preventBack() { window.history.forward(); }  \r\n"
+						+ "    setTimeout(\"preventBack()\", 0);  \r\n"
+						+ "    window.onunload = function () { null };  \r\n"
+						+ "</script>");
 	}
 
 }

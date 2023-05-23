@@ -109,6 +109,7 @@ public class LoginUserDashboard extends HttpServlet {
 				+ "		transition: 0.5s ease-out;\r\n"
 				+ "}\r\n"
 				+ ".popup{\r\n"
+				+ " background: transparent;\r\n"
 				+ "	background-color: rgba(0, 10, 9, 0.78);\r\n"
 				+ "	border-radius: 10px;\r\n"
 				+ "	box-shadow: 5px 8px 15px silver inset;\r\n"
