@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -43,7 +41,7 @@ public class UpdateProfile extends HttpServlet {
 		try {
 			String url = "jdbc:postgresql://localhost:5432/SignInSignUp";
 			String user = "postgres";
-			String pass = "SYSTEM";
+			String pass = "admin";
 			Class.forName("org.postgresql.Driver");
 			Connection conn = DriverManager.getConnection(url, user, pass);
 			

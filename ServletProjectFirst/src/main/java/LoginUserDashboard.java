@@ -179,6 +179,7 @@ public class LoginUserDashboard extends HttpServlet {
 							pw.print("<input type=\"date\" name =\"dob\" value = "+dob+" class=\"form-control bg-transparent text-white\" required>\r\n");
 							pw.print("</div>\r\n"
 				+ "				<button type=\"submit\" class=\"btn btn-primary edit\">Update</button>\r\n"
+				
 				+ "			</form>\r\n"
 				+ "      </div>\r\n"
 				+ "    </div>\r\n"
@@ -271,7 +272,8 @@ public class LoginUserDashboard extends HttpServlet {
 				+ "          </div>\r\n"
 				+ "        </div>\r\n"
 				+ "    </div>\r\n"
-				+ "</body>\r\n"
+										
+				+" </body>\r\n"
 				+ "</html>");
 		
 		
@@ -283,6 +285,7 @@ public class LoginUserDashboard extends HttpServlet {
 				+ "    setTimeout(\"preventBack()\", 0);  \r\n"
 				+ "    window.onunload = function () { null };  \r\n"
 				+ "</script>");
+		
 
 	}
 	}

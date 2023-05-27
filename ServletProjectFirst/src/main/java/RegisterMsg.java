@@ -15,10 +15,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-/**
- * Servlet implementation class RegisterMsg
- */
 @WebServlet("/RegisterMsg")
 public class RegisterMsg extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -83,7 +79,7 @@ public class RegisterMsg extends HttpServlet {
 					}
 				}
 				// Inserting data into database using prepared statement
-				PreparedStatement ps = conn.prepareStatement("insert into signup values(?,?,?,?,?,?,?)");
+				PreparedStatement ps = conn.prepareStatement("insert into signup values(?,?,?,?,?,?,?,?)");
 				ps.setInt(1, ++count);
 				ps.setString(2, sd1.getName());
 				ps.setString(3, sd1.getPassword());
@@ -91,6 +87,7 @@ public class RegisterMsg extends HttpServlet {
 				ps.setString(5, sd1.getMobile());
 				ps.setString(6, sd1.getDob());
 				ps.setBoolean(7, false);
+				ps.setInt(8, 0);
 				ps.executeUpdate();
 				
 			} catch (Exception e) {
