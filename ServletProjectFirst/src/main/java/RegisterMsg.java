@@ -32,14 +32,8 @@ public class Register extends HttpServlet {
 		String email = request.getParameter("email");
 		String mobile = request.getParameter("mnumb");
 		String dob = request.getParameter("dob");
-
-		SignUpData sd1 = new SignUpData();
-
-		sd1.setName(name);
-		sd1.setPassword(password);
-		sd1.setEmail(email);
-		sd1.setMobile(mobile);
-		sd1.setDob(dob);
+		boolean ad=false;
+		boolean sad=false;
 
 		if (name != null && password != null) {
 			try {
@@ -61,14 +55,16 @@ public class Register extends HttpServlet {
 
 				// Inserting data into database using prepared statement
 
-				PreparedStatement ps = conn.prepareStatement("insert into signup values(?,?,?,?,?,?)");
+				PreparedStatement ps = conn.prepareStatement("insert into signup(id,name,password,email,mobile,dob,isadmin,issuperadmin) values(?,?,?,?,?,?,?,?)");
 
 				ps.setInt(1, ++count);
-				ps.setString(2, sd1.getName());
-				ps.setString(3, sd1.getPassword());
-				ps.setString(4, sd1.getEmail());
-				ps.setString(5, sd1.getMobile());
-				ps.setString(6, sd1.getDob());
+				ps.setString(2, name);
+				ps.setString(3, password);
+				ps.setString(4, email);
+				ps.setString(5, mobile);
+				ps.setString(6, dob);
+				ps.setBoolean(7, ad);
+				ps.setBoolean(8, sad);
 				int r = ps.executeUpdate();
 				if (r > 0) {
 					pw.println("done");
