@@ -2,7 +2,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -22,7 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/RegisterMsg")
 public class RegisterMsg extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -47,12 +46,8 @@ public class RegisterMsg extends HttpServlet {
 		sd1.setDob(dob);
 
 		if (email != null && password != null) {
-			try {
-				String url = "jdbc:postgresql://localhost:5432/SignInSignUp";
-				String user = "postgres";
-				String pass = "admin";
-				Class.forName("org.postgresql.Driver");
-				Connection conn = DriverManager.getConnection(url, user, pass);
+			try {			
+				Connection conn = ConnectionPg.getConnection(); // Calling static getConnection method using class name
 
 				// Fetching all email from database and adding to the list
 				List<String> lst = new LinkedList<>();
@@ -83,7 +78,7 @@ public class RegisterMsg extends HttpServlet {
 					}
 				}
 				// Inserting data into database using prepared statement
-				PreparedStatement ps = conn.prepareStatement("insert into signup values(?,?,?,?,?,?,?)");
+				PreparedStatement ps = conn.prepareStatement("insert into signup values(?,?,?,?,?,?,?,?)");
 				ps.setInt(1, ++count);
 				ps.setString(2, sd1.getName());
 				ps.setString(3, sd1.getPassword());
@@ -91,6 +86,7 @@ public class RegisterMsg extends HttpServlet {
 				ps.setString(5, sd1.getMobile());
 				ps.setString(6, sd1.getDob());
 				ps.setBoolean(7, false);
+				ps.setInt(8, 0);
 				ps.executeUpdate();
 				
 			} catch (Exception e) {

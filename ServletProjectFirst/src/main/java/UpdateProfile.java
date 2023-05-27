@@ -3,7 +3,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -41,11 +40,7 @@ public class UpdateProfile extends HttpServlet {
 		
 		
 		try {
-			String url = "jdbc:postgresql://localhost:5432/SignInSignUp";
-			String user = "postgres";
-			String pass = "admin";
-			Class.forName("org.postgresql.Driver");
-			Connection conn = DriverManager.getConnection(url, user, pass);
+			Connection conn = ConnectionPg.getConnection(); // Calling static getConnection method using class name
 			
 //			Fetching id from database
 			PreparedStatement pstmt = conn.prepareStatement("select id from signup where email = ?");

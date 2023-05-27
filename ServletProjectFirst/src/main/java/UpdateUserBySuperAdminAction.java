@@ -14,10 +14,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UpdateUserByAdminAction
+ * Servlet implementation class UpdateUserBySuperAdminAction
  */
-@WebServlet("/UpdateUserByAdminAction")
-public class UpdateUserByAdminAction extends HttpServlet {
+@WebServlet("/UpdateUserBySuperAdminAction")
+public class UpdateUserBySuperAdminAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
   
@@ -75,13 +75,13 @@ public class UpdateUserByAdminAction extends HttpServlet {
 						+ "		</div>\r\n"
 						+ "	</div>");
 				
-				RequestDispatcher rd = request.getRequestDispatcher("LoginSuperAdminDashboard");
+				RequestDispatcher rd = request.getRequestDispatcher("LoginAdminDashboard");
 				rd.include(request, response);
 				
 				
 			}
 			else {
-				RequestDispatcher rd = request.getRequestDispatcher("LoginSuperAdminDashboard");
+				RequestDispatcher rd = request.getRequestDispatcher("LoginAdminDashboard");
 				rd.forward(request, response);
 			}
 			
@@ -91,3 +91,4 @@ public class UpdateUserByAdminAction extends HttpServlet {
 	}
 
 }
+

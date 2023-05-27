@@ -14,29 +14,28 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class LoginAdminDashboard
+ * Servlet implementation class LoginSuperAdminDashboard
  */
-@WebServlet("/LoginAdminDashboard")
-public class LoginAdminDashboard extends HttpServlet {
+@WebServlet("/LoginSuperAdminDashboard")
+public class LoginSuperAdminDashboard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
 
+    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter pw = response.getWriter();
-        
-        
-//        Getting admin data from database
-        String namedb = null;
-        String emaildb = null;
 		
-                
+		PrintWriter pw = response.getWriter();
+//      Getting admin data from database
+      String namedb = null;
+      String emaildb = null;
+		
+              
 		int count = 0;
 		try {
 			Connection conn = ConnectionPg.getConnection(); // Calling static getConnection method using class name
 			
 			//Fetching admin data from database
-			PreparedStatement pstmt = conn.prepareStatement("select name, email from signup where isadmin = ?");			
-			pstmt.setBoolean(1, true);			
+			PreparedStatement pstmt = conn.prepareStatement("select name, email from signup where issuperadmin = ?");			
+			pstmt.setInt(1, 1);			
 			ResultSet rst = pstmt.executeQuery();
 			
 			while (rst.next()) {
@@ -63,7 +62,7 @@ public class LoginAdminDashboard extends HttpServlet {
 				+ "<html>\r\n"
 				+ "<head>\r\n"
 				+ "<meta charset=\"ISO-8859-1\">\r\n"
-				+ "<title>Admin Dashboard</title>\r\n"
+				+ "<title>Super Admin Dashboard</title>\r\n"
 				+ "<script src=\"https://code.jquery.com/jquery-3.4.1.slim.min.js\" integrity=\"sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n\" crossorigin=\"anonymous\"></script>\r\n"
 				+ "<script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\" integrity=\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\" crossorigin=\"anonymous\"></script>\r\n"
 				+ "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">\r\n"
@@ -81,7 +80,7 @@ public class LoginAdminDashboard extends HttpServlet {
 				+ "	.greet{\r\n"
 				+ "		box-shadow: 5px 8px 15px silver inset;\r\n"
 				+ "		padding-left: 100px;\r\n"
-				+ "		background-color: rgba(255, 66, 170, 0.29);\r\n"
+				+ "		background-color: rgba(255, 66, 170, 0.45);\r\n"
 				+ "	}\r\n"
 				+ ".profile {\r\n"
 				+ "		position: absolute;\r\n"
@@ -136,6 +135,12 @@ public class LoginAdminDashboard extends HttpServlet {
 				+ "				</div>\r\n"
 														
 				+ "			<div class=\"col-md-12 mx-auto\">\r\n"
+				
+				// Admin table data
+				+ "      <div>"
+				+ "      <h3>List of Admin</h3>"
+				
+				+ "      </div>\r\n"
 				+ "			<table class=\"table table-dark design text-center table-striped table-hover\">\r\n"
 				+ "				<thead>\r\n"
 				+ "					<tr>\r\n"
@@ -148,6 +153,9 @@ public class LoginAdminDashboard extends HttpServlet {
 				+ "					</tr>\r\n"
 				+ "				</thead>\r\n"
 				+ "				<tbody>\r\n");
+									
+									
+								
 		
 //		Setting data into tabular format
 		
@@ -156,7 +164,7 @@ public class LoginAdminDashboard extends HttpServlet {
 				int a;
 				for (a = 1; a <= count; a++) {
 							ps.setInt(1, a);
-							ps.setBoolean(2, false);
+							ps.setBoolean(2, true);
 							ps.setInt(3, 0);
 							
 							ResultSet rs = ps.executeQuery();
@@ -174,28 +182,24 @@ public class LoginAdminDashboard extends HttpServlet {
 								pw.print("<td>" + email + "</td>");
 								pw.print("<td>" + mobile + "</td>");
 								pw.print("<td>" + dob + "</td>");
-								pw.print("<td><form action ='UpdateUserByAdmin' method = 'post'><button type = 'submit' class = 'btn btn-primary'  value = \"+"+ a +"+\"+ name = 'update'>Update</button></form></td>");
-								pw.print("<td><form action = 'DeleteUserByAdmin' method = 'post'><button type = 'submit' class = 'btn btn-danger' value = \"+"+ a +"+\"+ name = 'delete'>Delete</button></form></td>");
+								pw.print("<td><form action ='UpdateUserBySuperAdminForm' method = 'post'><button type = 'submit' class = 'btn btn-primary'  value = \"+"+ a +"+\"+ name = 'update'>Update</button></form></td>");
+								pw.print("<td><form action = 'DeleteUserBySuperAdmin' method = 'post'><button type = 'submit' class = 'btn btn-danger' value = '+"+ a +"+' name = 'delete'>Delete</button></form></td>");
 				
 								pw.print("</tr>\r\n");
 								sno++;
 							}	
 							
 						}
-					
-				
-				
-					
-					} catch (Exception e) {
-						System.out.println(e);
-					}
-					
 								
 								pw.print("</tbody>\r\n"
-				+ "			</table>\r\n"
-				+ "		</div>\r\n"
-				+ "	</div>\r\n"
-				+ "</div>\r\n");
+				+ "			</table>\r\n");
+								
+								
+								
+		} catch (Exception e) {
+			System.out.println(e);
+		}	
+				
 								
 								pw.print("<!-- Modal -->\r\n"
 										+ "<div class=\"modal fade\" id=\"exampleModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n"
@@ -233,9 +237,79 @@ public class LoginAdminDashboard extends HttpServlet {
 										+ "</div>");
 													
 							
+													
+													
+								// User table data
+										pw.print("<div>"
+										+ "      <h3>List of Users</h3>"
+													
+									+ "      </div>\r\n"
+									+ "			<table class=\"table table-dark design text-center table-striped table-hover\">\r\n"
+									+ "				<thead>\r\n"
+									+ "					<tr>\r\n"
+									+ "						<th scope=\"col\">S.No.</th>\r\n"
+									+ "						<th scope=\"col\">Name</th>\r\n"
+									+ "						<th scope=\"col\">Email</th>\r\n"
+									+ "						<th scope=\"col\">Mobile</th>\r\n"
+									+ "						<th scope=\"col\">Date of Birth</th>\r\n"
+									+ "						<th scope=\"col\" colspan = 2>Action</th>\r\n"
+									+ "					</tr>\r\n"
+									+ "				</thead>\r\n"
+									+ "				<tbody>\r\n");
+									
+									
+									
+									
+//							Setting data into tabular format
+							try {
+									Connection conn= ConnectionPg.getConnection();
+									PreparedStatement ps = conn.prepareStatement("select name, email, mobile, dob from signup where id = ? AND isadmin = ? AND issuperadmin = ?");
+									int sno=1;
+									int a;
+									for (a = 1; a <= count; a++) {
+										ps.setInt(1, a);
+										ps.setBoolean(2, false);
+										ps.setInt(3, 0);
+										
+										ResultSet rs = ps.executeQuery();
+										while (rs.next()) {
+											
+											String name1 = rs.getString(1);
+											String email1 = rs.getString(2);
+											String mobile1 = rs.getString(3);
+											String dob1 = rs.getString(4);
+											
+											pw.print("<tr>\r\n");
+											
+											pw.println("<th scope=\"row\">" + sno + "</th>\r\n");
+											pw.print("<td>" + name1 + "</td>");
+											pw.print("<td>" + email1 + "</td>");
+											pw.print("<td>" + mobile1 + "</td>");
+											pw.print("<td>" + dob1 + "</td>");
+											pw.print("<td><form action ='UpdateUserBySuperAdminForm' method = 'post'><button type = 'submit' class = 'btn btn-primary'  value = \"+"+ a +"+\"+ name = 'update'>Update</button></form></td>");
+											pw.print("<td><form action = 'DeleteUserBySuperAdmin' method = 'post'><button type = 'submit' class = 'btn btn-danger' value = '+"+ a +"+' name = 'delete'>Delete</button></form></td>");
+											
+											pw.print("</tr>\r\n");
+											sno++;
+										}	
+										
+									}
+									
+										pw.print("</tbody>\r\n"
+									+ "			</table>\r\n");
+												
+													
+												
+											} catch (Exception e) {
+												System.out.println(e);
+											}
+									
+									pw.print("</div>\r\n"
+									+ "	</div>\r\n"
+									+ "</div>\r\n");
 								
-		pw.print("</body>\r\n"
-				+ "</html>");	
+									pw.print("</body>\r\n"
+											+ "</html>");	
 		
 								// Preventing from getting back to previous page
 								pw.print("<script type = \"text/javascript\" >  \r\n"
@@ -243,7 +317,11 @@ public class LoginAdminDashboard extends HttpServlet {
 										+ "    setTimeout(\"preventBack()\", 0);  \r\n"
 										+ "    window.onunload = function () { null };  \r\n"
 										+ "</script>");
-	}
+				}
 	
 
-}
+
+
+	}
+
+

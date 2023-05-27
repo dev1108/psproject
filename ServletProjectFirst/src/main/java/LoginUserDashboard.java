@@ -3,7 +3,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -33,11 +32,7 @@ public class LoginUserDashboard extends HttpServlet {
 		String dob = null;
 		
 		try {
-			String url = "jdbc:postgresql://localhost:5432/SignInSignUp";
-			String user = "postgres";
-			String pass = "admin";
-			Class.forName("org.postgresql.Driver");
-			Connection conn = DriverManager.getConnection(url, user, pass);
+			Connection conn = ConnectionPg.getConnection(); // Calling static getConnection method using class name
 			
 			PreparedStatement ps = conn.prepareStatement("select name, email, mobile, dob from signup where email = ?");
 			ps.setString(1, email);
@@ -68,13 +63,16 @@ public class LoginUserDashboard extends HttpServlet {
 				+ "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js\" integrity=\"sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6\" crossorigin=\"anonymous\"></script>\r\n"
 				+ "<style>\r\n"
 				+ "	body{\r\n"
-				+ "    margin-top:20px;\r\n"
+//				+ "    margin-top:20px;\r\n"
 				+ "    color: #e6edf3;\r\n"
 				+ "    text-align: left;\r\n"
 				+ "    background-color: #161b22;    \r\n"
 				+ "}\r\n"
 				+ ".main-body {\r\n"
-				+ "    padding: 15px;\r\n"
+				+ "    padding: 15px;\r\n"	
+				+ "}\r\n"
+				+ ".course {\r\n"
+				+ "    margin-top: -64px;\r\n"	
 				+ "}\r\n"
 				+ ".card {\r\n"
 				+ "    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);\r\n"
@@ -151,8 +149,9 @@ public class LoginUserDashboard extends HttpServlet {
 				+ "</head>\r\n"
 				+ "<body>\r\n");
 				
+//		Update pop up
 		pw.print("<!-- Modal -->\r\n"
-				+ "<div class=\"modal fade\" id=\"exampleModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n"
+				+ "<div class=\"modal fade\" id=\"updateModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n"
 				+ "  <div class=\"modal-dialog\" role=\"document\">\r\n"
 				+ "    <div class=\"modal-content popup\">\r\n"
 				+ "      <div class=\"modal-header\">\r\n"
@@ -169,7 +168,7 @@ public class LoginUserDashboard extends HttpServlet {
 							pw.print("</div>\r\n"
 				+ "				<div class=\"form-group\">\r\n"
 				+ "					<label class = \"text-silver\">Email</label> \r\n");
-							pw.print("<input type=\"email\" name =\"email\" value = "+emailid+" class=\"form-control bg-transparent text-white\" >\r\n");
+							pw.print("<input type=\"email\" name =\"email\" value = "+emailid+" class=\"form-control bg-transparent text-white\" readonly>\r\n");
 							pw.print("</div>\r\n"
 				+ "				<div class=\"form-group\">\r\n"
 				+ "					<label class = \"text-silver\">Mobile</label> \r\n");
@@ -185,9 +184,45 @@ public class LoginUserDashboard extends HttpServlet {
 				+ "    </div>\r\n"
 				+ "  </div>\r\n"
 				+ "</div>");
+							
+//				Add course pop up
+							pw.print("<!-- Modal -->\r\n"
+									+ "<div class=\"modal fade\" id=\"courseModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n"
+									+ "  <div class=\"modal-dialog\" role=\"document\">\r\n"
+									+ "    <div class=\"modal-content popup\">\r\n"
+									+ "      <div class=\"modal-header\">\r\n"
+									+ "        <h5 class=\"modal-title text-white\" id=\"exampleModalLabel\">Add Courses</h5>\r\n"
+									+ "        <button type=\"button\" class=\"close text-white\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n"
+									+ "          <span aria-hidden=\"true\">&times;</span>\r\n"
+									+ "        </button>\r\n"
+									+ "      </div>\r\n"
+									+ "      <div class=\"modal-body\">\r\n"
+									+ "        <form action=\"\" method=\"post\">\r\n"
+									+ "				<div class=\"form-group\">\r\n"
+									+ "					<label class = \"text-silver\">Course Name</label> \r\n");
+							pw.print("<input type=\"text\" name =\"name\" value = \"\" class=\"form-control bg-transparent text-white\" required>\r\n");
+							pw.print("</div>\r\n"
+									+ "				<div class=\"form-group\">\r\n"
+									+ "					<label class = \"text-silver\">Course Price</label> \r\n");
+							pw.print("<input type=\"email\" name =\"email\" value = \"\" class=\"form-control bg-transparent text-white\" >\r\n");
+							pw.print("</div>\r\n"
+									+ "				<div class=\"form-group\">\r\n"
+									+ "					<label class = \"text-silver\">Description</label> \r\n");
+							pw.print("<input type=\"text\" name =\"mobile\" value = \"\" class=\"form-control bg-transparent text-white\" required>\r\n");
+							pw.print("</div>\r\n"
+									+ "				<div class=\"form-group\">\r\n"
+									+ "					<label class = \"text-silver\">Published Date</label> \r\n");
+							pw.print("<input type=\"date\" name =\"dob\" value = \"\" class=\"form-control bg-transparent text-white\" required>\r\n");
+							pw.print("</div>\r\n"
+									+ "				<button type=\"submit\" class=\"btn btn-primary edit\">Update</button>\r\n"
+									+ "			</form>\r\n"
+									+ "      </div>\r\n"
+									+ "    </div>\r\n"
+									+ "  </div>\r\n"
+									+ "</div>");
 								
 					
-					/* User Profile Body */	
+					/* User Profile Heading */	
 		pw.print("	<div class=\"container\">\r\n"
 				+ "    <div class=\"main-body\">\r\n"
 				+ "    \r\n"
@@ -206,7 +241,7 @@ public class LoginUserDashboard extends HttpServlet {
 				+ "          <!-- /Breadcrumb -->\r\n"
 				+ "    \r\n"
 				+ "          <div class=\"row gutters-sm\">\r\n"
-				+ "            <div class=\"col-md-4 mb-3\">\r\n"
+				+ "            <div class=\"col-md-4\">\r\n"
 				+ "              <div class=\"card p-1\">\r\n"
 				+ "                <div class=\"card-body\">\r\n"
 				+ "                  <div class=\"d-flex flex-column align-items-center text-center\">\r\n"
@@ -223,7 +258,7 @@ public class LoginUserDashboard extends HttpServlet {
 				+ "            </div>\r\n"
 				+ "            <div class=\"col-md-8\">\r\n"
 				+ "         	\r\n"
-				+ "              <div class=\"card mb-3 p-2\">\r\n"
+				+ "              <div class=\"card p-2\">\r\n"
 				+ "                <div class=\"card-body\">\r\n"
 				+ "                  <div class=\"row\">\r\n"
 				+ "                    <div class=\"col-sm-3\">\r\n"
@@ -262,8 +297,9 @@ public class LoginUserDashboard extends HttpServlet {
 				+ "                  </div>\r\n"
 				+ "                 <hr>\r\n"
 				+ "                  <div class=\"row\">\r\n"
-				+ "                    <div class=\"col-sm-12\">\r\n"
-				+ "                      <button type = 'button' class = \"btn btn-primary edit\" data-toggle=\"modal\" data-target=\"#exampleModal\" >Edit Profile</button>\r\n"
+				+ "                    <div class=\"col-sm-12 d-flex\">\r\n"
+				+ "                      <button type = 'button' class = \"btn btn-primary edit mr-2\" data-toggle=\"modal\" data-target=\"#updateModal\" >Edit Profile</button>\r\n"
+				+ "                      <button type = 'button' class = \"btn btn-primary edit ml-2\" data-toggle=\"modal\" data-target=\"#courseModal\" >Add Course</button>\r\n"
 				+ "                    </div>\r\n"
 				+ "                  </div>\r\n"
 				+ "                </div>\r\n"
@@ -271,8 +307,25 @@ public class LoginUserDashboard extends HttpServlet {
 				+ "            </div>\r\n"
 				+ "          </div>\r\n"
 				+ "        </div>\r\n"
-				+ "    </div>\r\n"
-				+ "</body>\r\n"
+				+ "    </div>\r\n");
+				
+//				Courses heading
+				pw.print("	<div class=\"container\">\r\n"
+						+ "    <div class=\"main-body course\">\r\n"
+						+ "    \r\n"
+						+ "     <div class = \"row gutters-sm\">\r\n"
+						+ "     	<div class = \"col-sm-12 mb-3\">\r\n"
+						+ "     		<div class = \"card head\">\r\n"
+						+ "     			<div class = \"card-body\">\r\n"
+						+ "     				<div class = \"d-flex flex-column align-items-center text-center\">\r\n"
+						+ "     					<h3>Your Courses</h3>\r\n"
+						+ "     				</div>\r\n"
+						+ "     			</div>\r\n"
+						+ "     		</div>\r\n"
+						+ "     	</div>\r\n"
+						+ "     </div>\r\n");
+				
+				pw.print("</body>\r\n"
 				+ "</html>");
 		
 		

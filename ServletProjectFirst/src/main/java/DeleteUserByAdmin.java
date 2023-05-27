@@ -3,7 +3,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 import jakarta.servlet.RequestDispatcher;
@@ -31,14 +30,10 @@ public class DeleteUserByAdmin extends HttpServlet {
 			response.setContentType("text/html");
 //			pw.print(deleteId);
 			
-			// Creating connection
-			String url = "jdbc:postgresql://localhost:5432/SignInSignUp";
-			String user = "postgres";
-			String password = "admin";
+
 			try {
-				Class.forName("org.postgresql.Driver");
-				Connection conn = DriverManager.getConnection(url, user, password);
 				
+				Connection conn = ConnectionPg.getConnection(); // Calling static getConnection method using class name
 				
 				PreparedStatement pstmt = conn.prepareStatement("delete from signup where id = ?");
 				pstmt.setInt(1, d);
