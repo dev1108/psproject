@@ -39,7 +39,8 @@ public class LoginUserDashboard extends HttpServlet {
 
 			ResultSet rs = ps.executeQuery();
 			pw.println("<html><head><link rel='stylesheet'     href= ' css.css'>");
-			pw.println("	<style>div { transform: perspective(1500px) rotateY(0deg); "
+			pw.println("	<style>div {"
+					+ " transform: perspective(1500px) rotateY(0deg); "
 
 					+ "border-radius: 1rem;"
 
@@ -60,32 +61,49 @@ public class LoginUserDashboard extends HttpServlet {
 			while (rs.next()) {
 				pw.print("<div class=\"split left\"style='float:left;  margin-left:406.0000022px;\r\n" + "'>\r\n"
 						+ "  <div class=\"centered\"><br> <center>" + "<img src=\"e.jpg\"><br><br>" + rs.getString(2)
-						+ "		 <br>	"
+						+ "		 <br><br><br><br><br><br><br>	<br><br><br>"
+						
+						+ "<br><center><form action= 'user_view_course' method = 'post'>"
+
+						+ "<button type = 'submit' button class='btn btn-success btn-xs btn3d' >Logout</button><br><br><br><br>	</form>"
+				
 
 						+ "<br><center><form action= 'Login' method = 'post'>"
 
 						+ "<button type = 'submit' button class='btn btn-danger btn-xs btn3d' >Logout</button><br><br><br><br>	</form>");
 				pw.print("</div></div>");
 
-				pw.print("<div class=\"split right\" style='float:right;  margin-right: 31%;'>\r\n"
+				pw.print("<div class=\"form-group row\" style='float:right;  margin-right: 31%;'>\r\n"
 						+ "  <div class=\"centered\">");
 				pw.println("<table class='table table-hover table-striped'>");
 				pw.println("User Details<br>");
-				pw.println("<tr><th>ID</th>");
-				pw.println("<td> <input type='number' name='id' value=" + rs.getString(1) + " ><br></td></tr>");
-				pw.println("<tr><th>Name</th>");
-				pw.println("<td><input type='text' name='uname' value=" + rs.getString(2) + " ><br></td></tr>");
-				pw.println("<tr><th>Email</th>");
-				pw.println("<td><input type='email' name='e' value=" + rs.getString(3) + " ><br></td></tr>");
-				pw.println("<tr><th>Mobile No</th>");
-				pw.println("<td><input type='mobilenum' name='uname' value=" + rs.getString(4) + " ><br></td></tr>");
-				pw.println("<tr><th>DOB</th>");
-				pw.println("<td><input type='date' name='uname' value=" + rs.getString(5) + " ><br></td></tr>");
+				pw.println("<tr><th><label for=\"staticEmail\" >ID</label></th>");
+				pw.println("<td> <input type='number' name='id' value=" + rs.getString(1)
+						+ " readonly class=\"form-control-plaintext\" id=\"staticEmail\"><br></td></tr>");
+
+				pw.println("<tr><label for=\"staticEmail\" ><th>Name</label></th>");
+				pw.println("<td><input type='text' name='uname' value=" + rs.getString(2)
+						+ " readonly class=\"form-control-plaintext\" id=\"staticEmail\"><br></td></tr>");
+
+				pw.println("<tr><label for=\"staticEmail\" ><th>Email</label></th>");
+				pw.println("<td><input type='email' name='e' value=" + rs.getString(3)
+						+ " readonly class=\"form-control-plaintext\" id=\"staticEmail\"><br></td></tr>");
+
+				pw.println("<tr><label for=\"staticEmail\" ><th>Mobile No</label></th>");
+				pw.println("<td><input type='mobilenum' name='uname' value=" + rs.getString(4)
+						+ " readonly class=\"form-control-plaintext\" id=\"staticEmail\"><br></td></tr>");
+
+				pw.println("<tr><th><label for=\"staticEmail\" >DOB</th></label>");
+				pw.println("<td><input type='date' name='uname' value=" + rs.getString(5)
+						+ "readonly class=\"form-control-plaintext\" id=\"staticEmail\" ><br></td></tr>");
 				pw.println("<tr><th>Password</th>");
-				pw.println("<td><input type='text' name='uname' value=" + rs.getString(6) + " ><br></td></tr>");
+
+				pw.println("<td>" + rs.getString(6)
+						+ " <br></td></tr>");
+
 				pw.println("<tr>");
-				pw.println("<td><a href='editurl?id=" + rs.getInt(1)
-						+ "'><button class='btn btn-primary btn-xs btn3d''>Edit</button></a></td>");
+				pw.println("<td><a href='editurl?id="+rs.getInt(1)+"'><button class='btn btn-primary btn-xs btn3d''>Edit</button></a></td>");
+
 				pw.println("<td><a href='deleteurl?id=" + rs.getInt(1)
 						+ "'><button class='btn btn-danger btn-xs btn3d''>Delete</button></a></td></tr>");
 
