@@ -50,7 +50,7 @@ public class RegisterMsg extends HttpServlet {
 			try {
 				String url = "jdbc:postgresql://localhost:5432/SignInSignUp";
 				String user = "postgres";
-				String pass = "admin";
+				String pass = "root";
 				Class.forName("org.postgresql.Driver");
 				Connection conn = DriverManager.getConnection(url, user, pass);
 

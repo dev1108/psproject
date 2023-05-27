@@ -34,7 +34,7 @@ public class DeleteUserByAdmin extends HttpServlet {
 			// Creating connection
 			String url = "jdbc:postgresql://localhost:5432/SignInSignUp";
 			String user = "postgres";
-			String password = "admin";
+			String password = "root";
 			try {
 				Class.forName("org.postgresql.Driver");
 				Connection conn = DriverManager.getConnection(url, user, password);
