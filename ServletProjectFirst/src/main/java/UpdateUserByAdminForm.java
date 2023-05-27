@@ -20,7 +20,7 @@ public class UpdateUserByAdminForm extends HttpServlet {
 
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// Method for printing
 		PrintWriter pw = response.getWriter();
 		
 		// Getting id from admin dash board 
