@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -71,7 +72,7 @@ public class LoginUserDashboard extends HttpServlet {
 				+ ".main-body {\r\n"
 				+ "    padding: 15px;\r\n"	
 				+ "}\r\n"
-				+ ".course {\r\n"
+				+ ".courseHead {\r\n"
 				+ "    margin-top: -64px;\r\n"	
 				+ "}\r\n"
 				+ ".card {\r\n"
@@ -100,22 +101,30 @@ public class LoginUserDashboard extends HttpServlet {
 				+ "}\r\n"
 				+ ".edit{\r\n"
 				+ "		width: 100%;\r\n"
-				+ "		height: auto;\r\n"
+				+ "		height: 40px;\r\n"
+				+ "		border: 1px solid silver;\r\n"
+				+ "		border-radius: 20px;\r\n"
+				+ "		background-color: transparent;\r\n"
+				+ "		transition: 0.5s ease-out;\r\n"
+				+ "}\r\n"
+				+ ".edit1{\r\n"
+				+ "		width: 100%;\r\n"
+				+ "		height: 40px;\r\n"
 				+ "		border: 1px solid silver;\r\n"
 				+ "		border-radius: 20px;\r\n"
 				+ "		background-color: transparent;\r\n"
 				+ "		transition: 0.5s ease-out;\r\n"
 				+ "}\r\n"
 				+ ".popup{\r\n"
-				+ " background: transparent;\r\n"
-				+ "	background-color: rgba(0, 10, 9, 0.78);\r\n"
-				+ "	border-radius: 10px;\r\n"
-				+ "	box-shadow: 5px 8px 15px silver inset;\r\n"
-				+ "	padding: 20px;\r\n"
+				+ " 	background: transparent;\r\n"
+				+ "		background-color: rgba(0, 10, 9, 0.78);\r\n"
+				+ "		border-radius: 10px;\r\n"
+				+ "		box-shadow: 5px 8px 15px silver inset;\r\n"
+				+ "		padding: 20px;\r\n"
 				+ "}\r\n"
 				+ "\r\n"
 				+ ".head{\r\n"
-				+ "	margin-top: 50px;\r\n"
+				+ "		margin-top: 50px;\r\n"
 				+ "}\r\n"
 				+ ".card-body {\r\n"
 				+ "    flex: 1 1 auto;\r\n"
@@ -145,6 +154,30 @@ public class LoginUserDashboard extends HttpServlet {
 				+ ".shadow-none {\r\n"
 				+ "    box-shadow: none!important;\r\n"
 				+ "}\r\n"
+				+ ".collBtn:hover{background-color: green;}\r\n"
+				// courses style
+				+ "#course {\r\n"
+				+ "	font-family: Arial, Helvetica, sans-serif;\r\n"
+				+ "	border-collapse: collapse;\r\n"
+				+ "	width: 100%;\r\n"
+				+ "	\r\n"
+				+ "	background-color: transparent;\r\n"
+
+				+ "}\r\n"
+				+ "\r\n"
+				+ "#course td, #course th {\r\n"
+				+ "	border: 1px solid #21262d;\r\n"
+				+ "	padding: 8px;\r\n"
+				+ "}\r\n"
+				+ "\r\n"
+				+ "#course th {\r\n"
+				+ "	padding-top: 12px;\r\n"
+				+ "	padding-bottom: 12px;\r\n"
+				+ "	text-align: left;\r\n"
+				+ "	background-color: rgba(8, 215, 173, 0.18);\r\n"
+				+ "	color: white;\r\n"
+				+ "}\r\n"
+				
 				+ "</style>\r\n"
 				+ "</head>\r\n"
 				+ "<body>\r\n");
@@ -185,41 +218,7 @@ public class LoginUserDashboard extends HttpServlet {
 				+ "  </div>\r\n"
 				+ "</div>");
 							
-//				Add course pop up
-							pw.print("<!-- Modal -->\r\n"
-									+ "<div class=\"modal fade\" id=\"courseModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n"
-									+ "  <div class=\"modal-dialog\" role=\"document\">\r\n"
-									+ "    <div class=\"modal-content popup\">\r\n"
-									+ "      <div class=\"modal-header\">\r\n"
-									+ "        <h5 class=\"modal-title text-white\" id=\"exampleModalLabel\">Add Courses</h5>\r\n"
-									+ "        <button type=\"button\" class=\"close text-white\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n"
-									+ "          <span aria-hidden=\"true\">&times;</span>\r\n"
-									+ "        </button>\r\n"
-									+ "      </div>\r\n"
-									+ "      <div class=\"modal-body\">\r\n"
-									+ "        <form action=\"\" method=\"post\">\r\n"
-									+ "				<div class=\"form-group\">\r\n"
-									+ "					<label class = \"text-silver\">Course Name</label> \r\n");
-							pw.print("<input type=\"text\" name =\"name\" value = \"\" class=\"form-control bg-transparent text-white\" required>\r\n");
-							pw.print("</div>\r\n"
-									+ "				<div class=\"form-group\">\r\n"
-									+ "					<label class = \"text-silver\">Course Price</label> \r\n");
-							pw.print("<input type=\"email\" name =\"email\" value = \"\" class=\"form-control bg-transparent text-white\" >\r\n");
-							pw.print("</div>\r\n"
-									+ "				<div class=\"form-group\">\r\n"
-									+ "					<label class = \"text-silver\">Description</label> \r\n");
-							pw.print("<input type=\"text\" name =\"mobile\" value = \"\" class=\"form-control bg-transparent text-white\" required>\r\n");
-							pw.print("</div>\r\n"
-									+ "				<div class=\"form-group\">\r\n"
-									+ "					<label class = \"text-silver\">Published Date</label> \r\n");
-							pw.print("<input type=\"date\" name =\"dob\" value = \"\" class=\"form-control bg-transparent text-white\" required>\r\n");
-							pw.print("</div>\r\n"
-									+ "				<button type=\"submit\" class=\"btn btn-primary edit\">Update</button>\r\n"
-									+ "			</form>\r\n"
-									+ "      </div>\r\n"
-									+ "    </div>\r\n"
-									+ "  </div>\r\n"
-									+ "</div>");
+
 								
 					
 					/* User Profile Heading */	
@@ -298,9 +297,9 @@ public class LoginUserDashboard extends HttpServlet {
 				+ "                 <hr>\r\n"
 				+ "                  <div class=\"row\">\r\n"
 				+ "                    <div class=\"col-sm-12 d-flex\">\r\n"
-				+ "                      <button type = 'button' class = \"btn btn-primary edit mr-2\" data-toggle=\"modal\" data-target=\"#updateModal\" >Edit Profile</button>\r\n"
-				+ "                      <button type = 'button' class = \"btn btn-primary edit ml-2\" data-toggle=\"modal\" data-target=\"#courseModal\" >Add Course</button>\r\n"
-				+ "                    </div>\r\n"
+				+ "                      <button type = 'button' class = \"btn btn-primary edit mr-2\" data-toggle=\"modal\" data-target=\"#updateModal\" >Edit Profile</button>\r\n");
+
+				                pw.print("</div>\r\n"
 				+ "                  </div>\r\n"
 				+ "                </div>\r\n"
 				+ "              </div>\r\n"
@@ -311,7 +310,7 @@ public class LoginUserDashboard extends HttpServlet {
 				
 //				Courses heading
 				pw.print("	<div class=\"container\">\r\n"
-						+ "    <div class=\"main-body course\">\r\n"
+						+ "    <div class=\"main-body courseHead\">\r\n"
 						+ "    \r\n"
 						+ "     <div class = \"row gutters-sm\">\r\n"
 						+ "     	<div class = \"col-sm-12 mb-3\">\r\n"
@@ -325,10 +324,71 @@ public class LoginUserDashboard extends HttpServlet {
 						+ "     	</div>\r\n"
 						+ "     </div>\r\n");
 				
+				
+			// User courses list
+				
+				
+				pw.print("<div class=\"accordion\" id=\"accordionExample\">\r\n"
+						+ "  <div class=\"card\">\r\n"
+						+ "    <div class=\"card-header\" id=\"headingOne\">\r\n"
+						+ "      <h2 class=\"mb-0\">\r\n"
+						+ "        <button class=\"btn btn-link collapsed text-white text-decoration-none collBtn\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapseOne\" aria-expanded=\"false\" aria-controls=\"collapseOne\">\r\n"
+						+ "          View Your Course\r\n"
+						+ "        </button>\r\n"
+						+ "      </h2>\r\n"
+						+ "    </div>\r\n"
+						+ "\r\n"
+						+ "    <div id=\"collapseOne\" class=\"collapse multi-collapse\" aria-labelledby=\"headingOne\" data-parent=\"#accordionExample\">\r\n"
+						+ "      <div class=\"card-body\">\r\n");
+				
+				pw.print("\r\n"
+						+ "		<table id=\"course\">\r\n"
+						+ "			<tr>\r\n"
+						+ "				<th>S.No.</th>\r\n"
+						+ "				<th>Courses</th>\r\n"
+						
+						+ "			</tr>\r\n");
+						
+				try {
+					String[] course = null;
+						Connection conn = ConnectionPg.getConnection();
+						PreparedStatement pst = conn.prepareStatement("select course_name from signup where email = ?");
+						
+
+							pst.setString(1, email);
+							ResultSet rs = pst.executeQuery();
+							
+							
+							while (rs.next()) {
+								Array c = rs.getArray("course_name");
+								course = (String[]) c.getArray();
+																  
+								  int sno = 1;		  
+								  for (String x : course) {
+									  pw.print("<tr>\r\n");
+									  	pw.print("<td>"+sno+"</td>\r\n");
+										pw.print("<td>"+x+"</td>\r\n");
+										sno++;
+										
+									  pw.print("</tr>\r\n");
+									}								  
+								
+							}
+				
+				}catch(Exception e) {
+					System.out.println(e);
+				}
+				
+				pw.print("			\r\n"
+						+ "\r\n"
+						+ "		</table>\r\n");
+				
+						pw.print("</div>\r\n"
+						+ "    </div>\r\n"
+						+ "  </div></div>");		
+				
 				pw.print("</body>\r\n"
 				+ "</html>");
-		
-		
 		
 		
 		// Preventing from getting back to previous page

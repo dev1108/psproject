@@ -75,13 +75,13 @@ public class UpdateUserByAdminAction extends HttpServlet {
 						+ "		</div>\r\n"
 						+ "	</div>");
 				
-				RequestDispatcher rd = request.getRequestDispatcher("LoginSuperAdminDashboard");
+				RequestDispatcher rd = request.getRequestDispatcher("LoginAdminDashboard");
 				rd.include(request, response);
 				
 				
 			}
 			else {
-				RequestDispatcher rd = request.getRequestDispatcher("LoginSuperAdminDashboard");
+				RequestDispatcher rd = request.getRequestDispatcher("LoginAdminDashboard");
 				rd.forward(request, response);
 			}
 			
