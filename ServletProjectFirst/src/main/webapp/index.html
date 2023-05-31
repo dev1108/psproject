@@ -4,16 +4,18 @@
 <meta charset="ISO-8859-1">
 <title>Welcome to User Management System</title>
 <style>
-*{
+* {
 	margin: 0px;
 	padding: 0px;
 }
-body{
+
+body {
 	background-image: url('image/home.jpg');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
 }
+
 .btn {
 	width: 200px;
 	height: 35px;
@@ -27,9 +29,9 @@ body{
 }
 
 .btn:hover {
-  background-color: darkgreen;
-  color: white;
-  border: green;
+	background-color: darkgreen;
+	color: white;
+	border: green;
 }
 
 .container {
@@ -38,42 +40,70 @@ body{
 	background-color: black;
 	opacity: 0.8;
 }
-h2{
-	padding-top: 350px;
+
+.courseButton {
+	display: flex;
+	text-align: center;
+}
+
+h2 {
+	padding-top: 200px;
 	font-size: 40px;
 	font-family: cursive;
 	animation-name: texthead;
-  	animation-duration: 4s;
+	animation-duration: 4s;
 }
-@keyframes texthead{
+
+@keyframes texthead {
 	from {color: red;}
 	to {color: green;}
-}
 
-.btn{
+}
+.btn {
 	position: relative;
-  animation-name: btnanimate;
-  animation-duration: 3s;  
-  animation-fill-mode: forwards;
-}
-@keyframes btnanimate {
-  from {top: 0px;}
-  to {top: 100px;}
+	animation-name: btnanimate;
+	animation-duration: 3s;
+	animation-fill-mode: forwards;
+	
 }
 
+@keyframes btnanimate {
+	from {top: 0px;}
+
+to {
+	top: 50px;
+}
+}
+
+.btn {
+	margin-top: 20px;
+}
+
+.course{
+	display: flex;
+	margin-left: 40%;
+}
 </style>
 
 </head>
 
 <body>
-	<div class="container">
-		<div align=center class = "box">
-			<h2 style="color: white;">Welcome to <span style = "color: red;">User Management</span> System</h2>
-			<form action="Login" method="post">
-				<button type="submit" class = "btn">Login</button>
+	<div class="container" align=center>
+		<div class="box">
+			<h2 style="color: white;">
+				Welcome to <span style="color: red;">User Management</span> System
+			</h2>
+		</div>
+		<div class = "course">
+		<form action="Login" method="post">
+			<button type="submit" class="btn" style = "margin-right: 5px;">Login</button>
+		</form>
+		
+			<form action="ViewAllCourses" method="post">
+				<button type="submit" class="btn" style = "margin-left: 5px;">View All Courses</button>
 			</form>
-			
 		</div>
 	</div>
+	
 </body>
 </html>

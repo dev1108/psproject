@@ -12,15 +12,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
-@WebServlet("/UpdateUserByAdmin")
-public class UpdateUserByAdminForm extends HttpServlet {
+/**
+ * Servlet implementation class UpdateUserBySuperAdminForm
+ */
+@WebServlet("/UpdateUserBySuperAdminForm")
+public class UpdateUserBySuperAdminForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		PrintWriter pw = response.getWriter();
+PrintWriter pw = response.getWriter();
 		
 		// Getting id from admin dash board 
 					String updateId = request.getParameter("update");
@@ -164,3 +165,4 @@ public class UpdateUserByAdminForm extends HttpServlet {
 	}
 
 }
+
